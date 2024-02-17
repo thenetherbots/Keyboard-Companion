@@ -48,7 +48,6 @@ struct ContentView: View {
 
 // HOME SCREEN SECTION
 
-import SwiftUI
 
 struct HomeView: View {
     var body: some View {
