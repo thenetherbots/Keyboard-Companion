@@ -46,7 +46,7 @@ struct ContentView: View {
 }
 
 
-// Home Screen
+// HOME SCREEN SECTION
 
 import SwiftUI
 
