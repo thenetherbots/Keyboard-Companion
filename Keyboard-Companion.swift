@@ -46,88 +46,113 @@ struct ContentView: View {
 }
 
 
+// Home Screen
+
 struct HomeView: View {
     var body: some View {
-        NavigationView {
-            ZStack {
-                // Background color
-                Color.black.edgesIgnoringSafeArea(.all)
-
-                // Main content
-                VStack(alignment: .leading, spacing: 20) {
-                    // Streak header
+        ScrollView {
+            VStack {
+                // Streak header
+                VStack(alignment: .leading) {
                     Text("12 day streak")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    
+
                     Text("You've extended your streak 6 hours before average.")
                         .font(.headline)
                         .foregroundColor(.gray)
-                    
-                    // Quests section
+                }
+                .padding(.top)
+
+                // Quests section
+                VStack(alignment: .leading) {
                     Text("QUESTS")
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(.green)
                     
-                    // List of quests
-                    VStack(alignment: .leading, spacing: 10) {
-                        HStack {
-                            Image(systemName: "guitar") // Replace with custom icon
-                            Text("Practice for 10 min")
-                                .foregroundColor(.white)
-                            Spacer()
-                            ProgressView(value: 9, total: 10)
-                        }
-                        
-                        HStack {
-                            Image(systemName: "music.note.list") // Replace with custom icon
-                            Text("Play 3 songs")
-                                .foregroundColor(.white)
-                            Spacer()
-                            ProgressView(value: 2, total: 3)
-                        }
-                        
-                        HStack {
-                            Image(systemName: "person.2") // Replace with custom icon
-                            Text("Start a friends quest")
-                                .foregroundColor(.white)
-                            Spacer()
-                            ProgressView(value: 0, total: 1)
-                        }
-                    }
-                    
-                    Spacer()
+                    QuestRow(title: "Practice for 10 min", completion: 0.9)
+                    QuestRow(title: "Play 3 songs", completion: 0.66)
+                    QuestRow(title: "Start a friends quest", completion: 0)
                 }
-                .padding()
+                .padding(.vertical)
+
+                // My Current Songs section
+                VStack(alignment: .leading) {
+                    Text("MY CURRENT SONGS")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+
+                    SongProgressRow(songTitle: "Eine Kleine Nachtmusik", progress: 0.5)
+                    SongProgressRow(songTitle: "Für Elise", progress: 0.75)
+                    SongProgressRow(songTitle: "Vivaldi Spring", progress: 0.2)
+                }
+                .padding(.vertical)
             }
-            .navigationBarHidden(true)
+            .padding(.horizontal)
+        }
+        .background(Color.black.edgesIgnoringSafeArea(.all))
+        .foregroundColor(.white)
+    }
+}
+
+struct QuestRow: View {
+    var title: String
+    var completion: Float
+    
+    var body: some View {
+        HStack {
+            Text(title)
+            Spacer()
+            ProgressBar(progress: completion)
         }
     }
 }
 
-struct ProgressView: View {
-    let value: CGFloat
-    let total: CGFloat
+struct SongProgressRow: View {
+    var songTitle: String
+    var progress: Float
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(songTitle)
+                .font(.headline)
+            ProgressBar(progress: progress)
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+struct ProgressBar: View {
+    var progress: Float
     
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                Rectangle().frame(width: geometry.size.width , height: 5)
+                Rectangle().frame(width: geometry.size.width, height: 5)
                     .opacity(0.3)
-                    .foregroundColor(Color(UIColor.systemTeal))
+                    .foregroundColor(Color.gray)
 
-                Rectangle().frame(width: min(CGFloat(self.value)/CGFloat(self.total) * geometry.size.width, geometry.size.width), height: 5)
-                    .foregroundColor(Color(UIColor.systemBlue))
+                Rectangle().frame(width: CGFloat(progress) * geometry.size.width, height: 5)
+                    .foregroundColor(Color.blue)
                     .animation(.linear)
             }
             .cornerRadius(45.0)
         }
+        .frame(height: 5)
+    }
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
     }
 }
 
 
+// Lessons view
 struct LessonsView: View {
     var body: some View {
         // Placeholder for the Lessons screen content
