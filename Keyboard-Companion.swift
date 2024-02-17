@@ -45,7 +45,6 @@ struct ContentView: View {
     }
 }
 
-import SwiftUI
 
 struct HomeView: View {
     var body: some View {
