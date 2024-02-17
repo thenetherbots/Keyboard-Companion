@@ -49,64 +49,54 @@ struct ContentView: View {
 // HOME SCREEN SECTION
 
 
+
 struct HomeView: View {
     var body: some View {
         ScrollView {
             VStack {
                 // Streak header
-                StreakSectionView()
-                
-                // Quests section
-                SectionHeaderView(title: "QUESTS")
-                QuestRow(title: "Practice for 10 min", completion: 0.9)
-                QuestRow(title: "Play 3 songs", completion: 0.66)
-                QuestRow(title: "Start a friends quest", completion: 0)
+                VStack(alignment: .leading) {
+                    Text("12 day streak")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
 
-                // Lessons section
-                SectionHeaderView(title: "LESSONS")
-                LessonRow(title: "Learn about chords", completion: 0.3)
-                LessonRow(title: "Practice a new note", completion: 0.6)
-                LessonRow(title: "Hand coordination exercises", completion: 0.8)
+                    Text("You've extended your streak 6 hours before average.")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                }
+                .padding(.top)
+
+                // Quests section
+                VStack(alignment: .leading) {
+                    Text("QUESTS")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.green)
+                    
+                    QuestRow(title: "Practice for 10 min", completion: 0.9)
+                    QuestRow(title: "Play 3 songs", completion: 0.66)
+                    QuestRow(title: "Start a friends quest", completion: 0)
+                }
+                .padding(.vertical)
 
                 // My Current Songs section
-                SectionHeaderView(title: "MY CURRENT SONGS")
-                SongProgressRow(songTitle: "Eine Kleine Nachtmusik", progress: 0.5)
-                SongProgressRow(songTitle: "Für Elise", progress: 0.75)
-                SongProgressRow(songTitle: "Vivaldi Spring", progress: 0.2)
+                VStack(alignment: .leading) {
+                    Text("MY CURRENT SONGS")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+
+                    SongProgressRow(songTitle: "Eine Kleine Nachtmusik", progress: 0.5)
+                    SongProgressRow(songTitle: "Für Elise", progress: 0.75)
+                    SongProgressRow(songTitle: "Vivaldi Spring", progress: 0.2)
+                }
+                .padding(.vertical)
             }
-            .padding([.horizontal, .top])
-            .padding(.bottom, 50) // Bottom padding for last section
+            .padding(.horizontal)
         }
         .background(Color.black.edgesIgnoringSafeArea(.all))
         .foregroundColor(.white)
-    }
-}
-
-struct StreakSectionView: View {
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("12 day streak")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-
-            Text("You've extended your streak 6 hours before average.")
-                .font(.headline)
-                .foregroundColor(.gray)
-        }
-        .padding(.bottom)
-    }
-}
-
-struct SectionHeaderView: View {
-    let title: String
-    
-    var body: some View {
-        Text(title)
-            .font(.title2)
-            .fontWeight(.semibold)
-            .foregroundColor(title == "QUESTS" ? .green : .white)
-            .padding(.vertical)
     }
 }
 
@@ -115,16 +105,11 @@ struct QuestRow: View {
     var completion: Float
     
     var body: some View {
-        ProgressBarRow(title: title, progress: completion)
-    }
-}
-
-struct LessonRow: View {
-    var title: String
-    var completion: Float
-    
-    var body: some View {
-        ProgressBarRow(title: title, progress: completion)
+        HStack {
+            Text(title)
+            Spacer()
+            ProgressBar(progress: completion)
+        }
     }
 }
 
@@ -133,17 +118,8 @@ struct SongProgressRow: View {
     var progress: Float
     
     var body: some View {
-        ProgressBarRow(title: songTitle, progress: progress)
-    }
-}
-
-struct ProgressBarRow: View {
-    var title: String
-    var progress: Float
-    
-    var body: some View {
         VStack(alignment: .leading) {
-            Text(title)
+            Text(songTitle)
                 .font(.headline)
             ProgressBar(progress: progress)
         }
@@ -164,17 +140,10 @@ struct ProgressBar: View {
                 Rectangle().frame(width: CGFloat(progress) * geometry.size.width, height: 5)
                     .foregroundColor(Color.blue)
                     .animation(.linear)
-
-                Text("\(Int(progress * 100))%")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding(.leading, CGFloat(progress) * geometry.size.width - 30)
-                    .animation(.linear)
             }
             .cornerRadius(45.0)
         }
-        .frame(height: 20)
+        .frame(height: 5)
     }
 }
 
@@ -187,7 +156,7 @@ struct HomeView_Previews: PreviewProvider {
 
 
 // Lessons view
-import SwiftUI
+
 
 struct LessonsView: View {
     var body: some View {
