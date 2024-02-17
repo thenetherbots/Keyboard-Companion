@@ -47,8 +47,32 @@ struct ContentView: View {
 
 struct HomeView: View {
     var body: some View {
-        // Placeholder for the Home screen content
-        Text("Home Screen")
+        NavigationView {
+            ScrollView {
+                VStack {
+                    // Add your components here
+                    Text("Welcome to the Music App")
+                        .font(.largeTitle)
+                        .padding()
+
+                    // Example of a quest card
+                    VStack(alignment: .leading) {
+                        Text("Daily Quest")
+                            .font(.headline)
+                            .padding(.bottom, 1)
+                        Text("Practice for 20 minutes")
+                            .font(.subheadline)
+                    }
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(12)
+                    .padding()
+
+                    // Add more components as needed
+                }
+            }
+            .navigationTitle("Home")
+        }
     }
 }
 
