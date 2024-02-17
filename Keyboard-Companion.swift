@@ -45,36 +45,89 @@ struct ContentView: View {
     }
 }
 
+import SwiftUI
+
 struct HomeView: View {
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack {
-                    // Add your components here
-                    Text("Welcome to the Music App")
+            ZStack {
+                // Background color
+                Color.black.edgesIgnoringSafeArea(.all)
+
+                // Main content
+                VStack(alignment: .leading, spacing: 20) {
+                    // Streak header
+                    Text("12 day streak")
                         .font(.largeTitle)
-                        .padding()
-
-                    // Example of a quest card
-                    VStack(alignment: .leading) {
-                        Text("Daily Quest")
-                            .font(.headline)
-                            .padding(.bottom, 1)
-                        Text("Practice for 20 minutes")
-                            .font(.subheadline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    
+                    Text("You've extended your streak 6 hours before average.")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                    
+                    // Quests section
+                    Text("QUESTS")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.green)
+                    
+                    // List of quests
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack {
+                            Image(systemName: "guitar") // Replace with custom icon
+                            Text("Practice for 10 min")
+                                .foregroundColor(.white)
+                            Spacer()
+                            ProgressView(value: 9, total: 10)
+                        }
+                        
+                        HStack {
+                            Image(systemName: "music.note.list") // Replace with custom icon
+                            Text("Play 3 songs")
+                                .foregroundColor(.white)
+                            Spacer()
+                            ProgressView(value: 2, total: 3)
+                        }
+                        
+                        HStack {
+                            Image(systemName: "person.2") // Replace with custom icon
+                            Text("Start a friends quest")
+                                .foregroundColor(.white)
+                            Spacer()
+                            ProgressView(value: 0, total: 1)
+                        }
                     }
-                    .padding()
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(12)
-                    .padding()
-
-                    // Add more components as needed
+                    
+                    Spacer()
                 }
+                .padding()
             }
-            .navigationTitle("Home")
+            .navigationBarHidden(true)
         }
     }
 }
+
+struct ProgressView: View {
+    let value: CGFloat
+    let total: CGFloat
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                Rectangle().frame(width: geometry.size.width , height: 5)
+                    .opacity(0.3)
+                    .foregroundColor(Color(UIColor.systemTeal))
+
+                Rectangle().frame(width: min(CGFloat(self.value)/CGFloat(self.total) * geometry.size.width, geometry.size.width), height: 5)
+                    .foregroundColor(Color(UIColor.systemBlue))
+                    .animation(.linear)
+            }
+            .cornerRadius(45.0)
+        }
+    }
+}
+
 
 struct LessonsView: View {
     var body: some View {
