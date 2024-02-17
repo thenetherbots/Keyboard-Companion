@@ -187,12 +187,92 @@ struct HomeView_Previews: PreviewProvider {
 
 
 // Lessons view
+import SwiftUI
+
 struct LessonsView: View {
     var body: some View {
-        // Placeholder for the Lessons screen content
-        Text("Lessons Screen")
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            
+            VStack(spacing: 20) {
+                // Top section with flames and trophy
+                HStack {
+                    Image(systemName: "flame.fill")
+                        .foregroundColor(.red)
+                    
+                    Spacer()
+                    
+                    Text("12")
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "trophy.fill")
+                        .foregroundColor(.yellow)
+                }
+                .padding(.horizontal)
+                
+                // Unit Title
+                Text("Unit 1 Basic notes")
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.gray.opacity(0.5))
+                    .cornerRadius(10)
+                
+                // Lessons Buttons
+                VStack(spacing: 15) {
+                    LessonButton(title: "Learn C+D", iconName: "music.note", color: .blue)
+                    LessonButton(title: "Learn E", iconName: "music.note", color: .green)
+                    LessonButton(title: "Hot Cross Buns", iconName: "music.quarternote.3", color: .orange, isFavorite: true)
+                    LessonButton(title: "Review", iconName: "star", color: .gray)
+                }
+                
+                Spacer()
+            }
+            .padding(.top)
+        }
     }
 }
+
+struct LessonButton: View {
+    var title: String
+    var iconName: String
+    var color: Color
+    var isFavorite: Bool = false
+    
+    var body: some View {
+        HStack {
+            Image(systemName: iconName)
+                .foregroundColor(color)
+                .font(.title)
+            
+            Text(title)
+                .foregroundColor(.white)
+                .font(.headline)
+            
+            if isFavorite {
+                Image(systemName: "star.fill")
+                    .foregroundColor(.yellow)
+            }
+            
+            Spacer()
+        }
+        .padding()
+        .background(Color.white.opacity(0.1))
+        .cornerRadius(20)
+    }
+}
+
+struct LessonsView_Previews: PreviewProvider {
+    static var previews: some View {
+        LessonsView()
+    }
+}
+
 
 struct SongsView: View {
     var body: some View {
