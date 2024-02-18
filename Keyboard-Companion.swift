@@ -244,10 +244,59 @@ struct LessonsView_Previews: PreviewProvider {
 
 
 struct SongsView: View {
+import SwiftUI
+
+// Define your Song model
+struct Song {
+    var title: String
+    var level: String
+    var image: String // Name of the image in your assets
+    var composer: String
+    var isRecommended: Bool
+    var isPopular: Bool
+    var isRecentlyStarted: Bool
+}
+
+struct SongsListView: View {
+    // Dummy data for illustration
+    let songs = [
+        Song(title: "Hot Cross Buns", level: "Easy", image: "hot_cross_buns", composer: "Traditional", isRecommended: true, isPopular: false, isRecentlyStarted: false),
+        Song(title: "Mary Has A Little Lamb", level: "Easy", image: "mary_has_a_little_lamb", composer: "Traditional", isRecommended: true, isPopular: false, isRecentlyStarted: false),
+        // ... Add other songs
+    ]
+
     var body: some View {
-        // Placeholder for the Songs screen content
-        Text("Songs Screen")
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    // Your UI components go here
+                    // For each song in songs, create a navigation link to the detail view
+                }
+            }
+            .navigationBarTitle("Songs", displayMode: .inline)
+        }
     }
+}
+
+struct SongDetailView: View {
+    let song: Song
+
+    var body: some View {
+        VStack {
+            // Your detailed song view components go here
+            Text(song.title)
+            // ... Other details
+        }
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        SongsListView()
+    }
+}
+
+
 }
 
 struct ProfileView: View {
