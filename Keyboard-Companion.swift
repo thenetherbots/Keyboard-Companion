@@ -502,12 +502,104 @@ struct SongsView: View {
     }
 }
     
-    struct ProfileView: View {
-        var body: some View {
-            // Placeholder for the Profile screen content
-            Text("Profile Screen")
+import SwiftUI
+
+struct ProfileView: View {
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Image(systemName: "person.crop.circle.fill")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .padding()
+                    VStack(alignment: .leading) {
+                        Text("Name")
+                            .bold()
+                            .font(.system(size: 45))
+                        Text("@username")
+                            .font(.headline)
+                        Text("Level 1")
+                            .font(.title)
+                            .italic()
+                    }
+                }
+                .padding()
+                
+                HStack {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("streak: 12")
+                            .font(.title)
+                            .frame(width: 300, height: 50)
+                            .padding()
+                            .background(.quaternary)
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
+            
+                    }
+                    Spacer()
+                   
+                }
+                .padding([.top, .horizontal])
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("total xp: 455")
+                            .font(.title)
+                            .frame(width: 300, height: 50)
+                            .padding()
+                            .background(.quaternary)
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                    }
+                    Spacer()
+                }
+                .padding([.top, .horizontal])
+                
+                ZStack {
+                    Text("")
+                        .font(.title)
+                        .frame(width: 300, height: 50)
+                        .padding()
+                        .background(.yellow)
+                        .opacity(0.5)
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                    Text("league: gold")
+                        .font(.title)
+                    // big brain strats, using zstack to overlap
+                }
+                .padding()
+                
+                Text("FRIENDS")
+                    .font(.headline)
+                    .padding()
+                
+                ForEach(0..<3) { i in
+                    HStack {
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .frame(width: 75, height: 75)
+                            .padding(.horizontal)
+                        VStack(alignment: .leading) {
+                            Text("friend\(i + 1)")
+                                .font(.largeTitle)
+                            Text("@friend\(i + 1)")
+                                .font(.subheadline)
+                        }
+                        Spacer()
+                    }
+                    .padding()
+                }
+            }
         }
+        .foregroundColor(.white)
     }
+}
+
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileView()
+    }
+}
+
     
     struct LeaguesView: View {
         var body: some View {
@@ -522,4 +614,3 @@ struct SongsView: View {
             Text("Connect Screen")
         }
     }
-
