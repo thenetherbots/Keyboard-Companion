@@ -501,8 +501,6 @@ struct SongsView: View {
         }
     }
 }
-    
-import SwiftUI
 
 struct ProfileView: View {
     var body: some View {
