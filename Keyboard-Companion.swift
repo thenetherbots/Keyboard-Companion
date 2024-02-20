@@ -48,50 +48,92 @@ struct ContentView: View {
 struct HomeView: View {
     var body: some View {
         ScrollView {
-            VStack {
-                // Streak header
-                VStack(alignment: .leading) {
-                    Text("12 day streak")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
+            VStack(alignment: .center, spacing: 0) {    
+                HStack {
+                    // Streak header
+                    //VStack(alignment: .leading) {
+                    Text("9")
+                        .padding([.top, .horizontal])
+                        
+                        .font(.system(size: 100))
+                        .fontWeight(.thin)
                         .foregroundStyle(.white)
+                        .frame(width: 86, height: 115)
+                   
                     
-                    Text("You've extended your streak 6 hours before average.")
+                }
+                        
+                    Text("day streak!")
+                    .padding([.horizontal])
+
+                        .font(.title)
+                        .fontWeight(.thin)
+                        .foregroundStyle(.white)
+                
+                    Text("You've extended your streak 4 hours earlier than you normally do.")
+                    .frame(width: 325, height: 65)
+                    .background(.quaternary)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
                         .font(.headline)
                         .foregroundColor(.white)
-                }
-                .padding(.top)
+                        .padding()
+                //}
+                //.padding(.top)
                 
                 // Quests section
-                VStack(alignment: .leading) {
-                    Text("QUESTS")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.green)
-                    
-                    QuestRow(title: "Practice for 10 min", completion: 0.9)
-                    QuestRow(title: "Play 3 songs", completion: 0.66)
-                    QuestRow(title: "Start a friends quest", completion: 0)
+                HStack(alignment: .center) {
+                    VStack(alignment: .center) {
+                        Text("QUESTS")
+                            .font(.system(size: 35))
+                            .padding([.bottom, .horizontal])
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.green)
+                        
+                        QuestRow(title: "Practice for 10 min", completion: 0.9)
+                        Text("9 / 10")
+                            .italic()
+                        QuestRow(title: "Play 3 songs", completion: 0.66)
+                        Text("2 / 3")
+                            .italic()
+                        QuestRow(title: "Start a friends quest", completion: 0)
+                        Text("0 / 1")
+                            .italic()
+                    }
+                    .frame(width: 300)
                 }
+                .frame(width: 350)
+                
                 .padding(.vertical)
                 
                 // My Current Songs section
-                VStack(alignment: .leading) {
-                    Text("MY CURRENT SONGS")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.white)
-                    
-                    SongProgressRow(songTitle: "Eine Kleine Nachtmusik", progress: 0.5)
-                    SongProgressRow(songTitle: "Für Elise", progress: 0.75)
-                    SongProgressRow(songTitle: "Vivaldi Spring", progress: 0.2)
+                HStack(alignment: .center) {
+                    VStack(alignment: .center) {
+                        Text("MY CURRENT SONGS")
+                            .font(.system(size: 29))
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.white)
+                        
+                        SongProgressRow(songTitle: "Eine Kleine Nachtmusik", progress: 0.5)
+                        Text("50%")
+                            .italic()
+                        SongProgressRow(songTitle: "Für Elise", progress: 0.75)
+                        Text("75%")
+                            .italic()
+                        SongProgressRow(songTitle: "Vivaldi Spring", progress: 0.2)
+                        Text("20%")
+                            .italic()
+                        
+                    }
+                    .padding(.vertical)
+                    .frame(width: 300)
                 }
-                .padding(.vertical)
+                .frame(width: 350)
             }
             .padding(.horizontal)
         }
             .foregroundColor(.white)
         }
+    
     }
 
 struct SectionHeaderView: View {
@@ -111,8 +153,9 @@ struct QuestRow: View {
     var completion: Float
     
     var body: some View {
-        HStack {
+        VStack(alignment: .leading) {
             Text(title)
+                .bold()
             Spacer()
             ProgressBar(progress: completion)
         }
@@ -128,6 +171,7 @@ struct ProgressBarRow: View {
             Text(title)
                 .font(.headline)
             ProgressBar(progress: progress)
+            
         }
         .padding(.vertical, 4)
     }
@@ -163,17 +207,17 @@ struct ProgressBar: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                Rectangle().frame(width: geometry.size.width, height: 5)
+                Rectangle().frame(width: geometry.size.width, height: 7)
                     .opacity(0.3)
                     .foregroundColor(Color.gray)
                 
-                Rectangle().frame(width: CGFloat(progress) * geometry.size.width, height: 5)
+                Rectangle().frame(width: CGFloat(progress) * geometry.size.width, height: 7)
                     .foregroundColor(Color.blue)
                     .animation(.linear)
             }
             .cornerRadius(45.0)
         }
-        .frame(height: 5)
+       // .frame(width: 300, height: 5)
     }
 }
 
@@ -501,67 +545,79 @@ struct SongsView: View {
         }
     }
 }
+    
+import SwiftUI
 
 struct ProfileView: View {
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 10) {
-                HStack {
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .padding()
-                    VStack(alignment: .leading) {
-                        Text("Name")
-                            .bold()
-                            .font(.system(size: 45))
-                        Text("@username")
-                            .font(.headline)
-                        Text("Level 1")
-                            .font(.title)
-                            .italic()
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Image(systemName: "person.crop.circle.fill")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .padding()
+                        VStack(alignment: .leading) {
+                            Text("Name")
+                                .bold()
+                                .font(.system(size: 45))
+                            Text("@username")
+                                .font(.headline)
+                            Text("Level 3")
+                                .font(.title)
+                                .italic()
+                        }
+                    }
+                    .padding()
+                    
+                    HStack(alignment: .center) {
+                        VStack(alignment: .center, spacing: 0) {
+                            Button {
+                            } label: {
+                                Text("9 day streak")
+                                    .font(.title)
+                                    .frame(width: 300, height: 50)
+                                    .padding()
+                                    .background(.quaternary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                            }
+                        }
+                        
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding([.top, .horizontal])
+                    
+                    HStack(alignment: .center) {
+                        VStack(alignment: .center) { 
+                            Text("total xp: 455")
+                                .font(.title)
+                                .frame(width: 300, height: 50)
+                                .padding()
+                                .background(.quaternary)
+                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                            
+                        }
                     }
                 }
-                .padding()
                 
-                HStack {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("streak: 12")
+                .padding([.top, .horizontal])
+                
+                ZStack(alignment: .center) {
+                    NavigationLink(destination: LeaguesView()) {
+                        Text("Gold League")
                             .font(.title)
                             .frame(width: 300, height: 50)
                             .padding()
-                            .background(.quaternary)
-                            .clipShape(RoundedRectangle(cornerRadius: 25))
-            
-                    }
-                    Spacer()
-                   
-                }
-                .padding([.top, .horizontal])
-                
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("total xp: 455")
-                            .font(.title)
-                            .frame(width: 300, height: 50)
-                            .padding()
-                            .background(.quaternary)
+                            .background(.yellow)
+                            .opacity(0.75)
                             .clipShape(RoundedRectangle(cornerRadius: 25))
                     }
-                    Spacer()
-                }
-                .padding([.top, .horizontal])
-                
-                ZStack {
-                    Text("")
-                        .font(.title)
-                        .frame(width: 300, height: 50)
-                        .padding()
-                        .background(.yellow)
-                        .opacity(0.5)
-                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                    Text("league: gold")
-                        .font(.title)
+                    /*Button {
+                     } label: {
+                     Text("Gold League")
+                     .font(.title)
+                     }*/
                     // big brain strats, using zstack to overlap
                 }
                 .padding()
@@ -588,27 +644,146 @@ struct ProfileView: View {
                 }
             }
         }
-        .foregroundColor(.white)
+        .foregroundStyle(.white)
     }
 }
+   
 
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView()
+
+    struct ProfileView_Previews: PreviewProvider {
+        static var previews: some View {
+            ProfileView()
+        }
     }
-}
-
+    
     
     struct LeaguesView: View {
         var body: some View {
-            // Placeholder for the Leagues screen content
-            Text("Leagues Screen")
+            NavigationView {
+                List {
+                    Section(header: Text("Silver League").font(.headline)) {
+                        HStack {
+                            Image(systemName: "shield")
+                            Text("455 xp earned this week")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    
+                    ForEach(1..<13) { index in
+                        HStack {
+                            Text("\(index)")
+                                .foregroundColor(index == 4 ? .green : .primary)
+                            Image(systemName: "person.fill")
+                            Text(index == 4 ? "You" : index >= 5 ? "friend\(index - 1)" : index < 4 ? "friend\(index) " : "Nobody")
+                                .foregroundColor(index == 4 ? .green : .primary)
+                        }
+                        .padding()
+                        .background(index == 4 ? Color.green.opacity(0.1) : Color.clear)
+                        .cornerRadius(8)
+                    }
+                    
+                    Text("PROMOTION ZONE")
+                        .font(.footnote)
+                        .foregroundColor(.green)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 5)
+                }
+                .listStyle(PlainListStyle())
+                .navigationTitle("Leagues")
+            
         }
     }
+}
+
+struct LeaguesView_Previews: PreviewProvider {
+    static var previews: some View {
+        LeaguesView()
+    }
+}
     
-    struct ConnectView: View {
-        var body: some View {
-            // Placeholder for the Connect screen content
-            Text("Connect Screen")
-        }
-    }
+import SwiftUI
+
+struct ConnectView: View {
+        @State private var isConnected = false
+        
+        var body: some View {
+                ZStack {
+                        
+                        VStack(spacing: 20) {
+                                Text("CONNECT")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                
+                                if isConnected {
+                                        ConnectedView()
+                                    } else {
+                                            DisconnectedView()
+                                        }
+                                
+                                // Toggle Button
+                                Button(action: {
+                                        self.isConnected.toggle() // Toggle the connection state
+                                    }) {
+                                            Text(isConnected ? "DISCONNECT" : "CONNECT")
+                                                .foregroundColor(.white)
+                                                .padding()
+                                                .frame(width: 300, height: 50)
+                                                .background(Color.blue)
+                                                .cornerRadius(10)
+                                        }
+                            }
+                    }
+            }
+}
+
+struct ConnectedView: View {
+        var body: some View {
+                VStack(spacing: 20) {
+                        // Assuming you have a placeholder image for "Keyboard Companion"
+                        Image(systemName: "iphone.gen1.radiowaves.left.and.right")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(.white)
+            
+                        Text("Name's Companion")
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .frame(width: 300, height: 75)
+                            .background(Color.gray.opacity(0.5))
+                            .cornerRadius(10)
+                    }
+            }
+}
+
+struct DisconnectedView: View {
+        var body: some View {
+                VStack(spacing: 20) {
+                        // Placeholder for "Connect your Keyboard Companion" image
+                        Image(systemName: "iphone.gen1.radiowaves.left.and.right") 
+             // Replace this with your actual image name
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(.gray)
+            
+                        Text("CONNECT YOUR\nKEYBOARD COMPANION")
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                            .frame(width: 300, height: 60)
+                            .background(Color.white.opacity(0.1))
+                            .cornerRadius(10)
+                    }
+            }
+}
+
+struct ConnectView_Previews: PreviewProvider {
+        static var previews: some View {
+                ConnectView()
+            }
+}
+
+
+
