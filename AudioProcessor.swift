@@ -91,3 +91,11 @@ class AudioProcessor {
                         
                         // Here, call your frequency detection handler
                         DispatchQueue.main.async {
+                            self.onFrequencyDetected?(frequency)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
