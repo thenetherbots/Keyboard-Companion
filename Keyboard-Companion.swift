@@ -410,14 +410,16 @@ struct SongsView: View {
         var isRecommended: Bool
         var isPopular: Bool
         var isRecentlyStarted: Bool
+        var duration: TimeInterval
+        var description: String
     }
     
     // Dummy data for illustration
     let songs = [
-        Song(title: "Hot Cross Buns", level: "Hard", image: "HotCrossBuns@3x", composer: "Traditional", isRecommended: false, isPopular: false, isRecentlyStarted: true),
-        Song(title: "Ode To Joy", level: "Expert", image: "Beethoven@3x", composer: "Traditional", isRecommended: true, isPopular: false, isRecentlyStarted: true),
-        Song(title: "Mary Had A Little Lamb", level: "Expert", image: "MaryHadALittleLamb@3x", composer: "Traditional", isRecommended: true, isPopular: true, isRecentlyStarted: true),
-        Song(title: "Rush E", level: "Easy", image: "RushE@3x", composer: "Traditional", isRecommended: false, isPopular: true, isRecentlyStarted: true),
+        Song(title: "Hot Cross Buns", level: "Hard", image: "HotCrossBuns@3x", composer: "Traditional", isRecommended: false, isPopular: false, isRecentlyStarted: true, duration: 15, description: "Hot Cross Buns is an amazing introductory song. it consists of four measures, which are often repeated twice."),
+        Song(title: "Ode To Joy", level: "Expert", image: "Beethoven@3x", composer: "Traditional", isRecommended: true, isPopular: false, isRecentlyStarted: true, duration: 30, description: "Ode To Joy has perhaps one of the most famous motives in musical history. Written by Ludwig Van Beethoven, this piece is a great beginner tune. "),
+        Song(title: "Mary Had A Little Lamb", level: "Expert", image: "MaryHadALittleLamb@3x", composer: "Traditional", isRecommended: true, isPopular: true, isRecentlyStarted: true, duration: 30, description: "Experience the charm of 'Mary Had a Little Lamb' as a quintessential beginner's piece for piano enthusiasts, with its delightful simplicity and timeless melodies perfect for mastering the keys."),
+        Song(title: "Rush E", level: "Easy", image: "RushE@3x", composer: "Traditional", isRecommended: false, isPopular: true, isRecentlyStarted: true, duration: 130, description: "Rush E: A thrilling and fast-paced piano piece, challenging players with intricate rhythms and exhilarating melodies for an electrifying musical experience."),
         // ... Add other songs
     ]
     
@@ -532,15 +534,74 @@ struct SongsView: View {
         }
     }
     
-    
     struct SongDetailView: View {
-        let song: Song
+        var song: Song // Your Song struct instance
         
         var body: some View {
-            VStack {
-                // Your detailed song view components go here
+            VStack(alignment: .leading) {
+                // Title
                 Text(song.title)
-                // ... Other details
+                    .font(.system(size: 45))
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding()
+                
+                // Description
+                Text(song.description)
+                    .font(.title3)
+                    .foregroundColor(.white)
+                    .padding([.leading, .trailing, .bottom])
+                    .frame(width: 335, alignment: .leading)
+                
+                // Difficulty
+                VStack(alignment: .leading) {
+                    Text("DIFFICULTY:")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    
+                    Text(song.level.uppercased())
+                        .fontWeight(.semibold)
+                        .foregroundColor(song.level == "Easy" ? .green : song.level == "Medium" ? .yellow : song.level == "Hard" ? .orange : song.level == "Expert" ? .red : .white)
+                        .font(.system(size: 50))
+                    
+                    // Duration
+                    Text("TIME:")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                    
+                    Text("~\(Int(song.duration)) secs")
+                        .fontWeight(.bold)
+                        .foregroundColor(.blue)
+                        .font(.system(size: 50))
+                    
+                    Spacer()
+
+                }
+                .padding(.leading)
+                
+                Spacer()
+                
+                // Preview and Start Playing Buttons
+                HStack(spacing: 30) {
+                    Button(action: {
+                        // Preview action
+                    }) {
+                        Image(systemName: "play.circle")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                    }
+                    
+                    Button(action: {
+                        // Start playing action
+                    }) {
+                        Image(systemName: "music.note")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                    }
+                }
+                .padding(.bottom)
             }
         }
     }
