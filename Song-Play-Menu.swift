@@ -1,3 +1,5 @@
+// Just remember that in the MyApp file, rename the view to StaffLinesView()
+
 import SwiftUI
 
 struct StaffLinesView: View {
