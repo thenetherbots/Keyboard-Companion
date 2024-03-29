@@ -1,26 +1,31 @@
-// Just remember that in the MyApp file, rename the view to StaffLinesView()
-
 import SwiftUI
 
 struct StaffLinesView: View {
-        @State var currentNotes = ["F6", "E6", "D6", "C6", "B5", "A5", "G5", "F5", "E5", "D5", "C5", "B4", "A4", "G4", "F4", "E4", "D4", "C4", "B3", "A3", "G3", "F3"] // Example notes array
+    @State var currentNotes = ["F6", "E6", "D6", "C6", "B5", "A5", "G5", "F5", "E5", "D5", "C5", "B4", "A4", "G4", "F4", "E4", "D4", "C4", "B3", "A3", "G3", "F3"] // Example notes array
         
-        var body: some View {
-                ScrollView(.horizontal, showsIndicators: false) {
+    @State private var simulatedScrollOffset: CGFloat = 0
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
             ZStack() {
                 // Staff Lines
                 staffLines
-                
+                    
                 HStack(spacing: 30) { // Adjust spacing as needed
                     ForEach(currentNotes.indices, id: \.self) { index in
                         noteView(for: currentNotes[index], at: index)
                     }
                 }
+                .padding(.leading, simulatedScrollOffset)
                 .padding(.vertical, 50) // Adjust vertical padding as needed
                 .padding(.top, 20) // Start below the staff lines
             }
-        }
-        .frame(height: 300) // Adjust the frame height as needed
+            .onAppear {
+                withAnimation(.linear(duration: TimeInterval(currentNotes.count))) {
+                    simulatedScrollOffset = -CGFloat(currentNotes.count * 100)
+                }
+            }
+       }
+       .frame(height: 300) // Adjust the frame height as needed
     }
     
     private var staffLines: some View {
